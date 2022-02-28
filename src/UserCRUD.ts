@@ -35,8 +35,7 @@ export class UserCRUD implements CRUD <User>
     )
     }
 
-
-    create()
+    load()
     {
         this.tableEle =  document.createElement("table");
         let tr = this.tableEle.insertRow(-1);
@@ -48,39 +47,44 @@ export class UserCRUD implements CRUD <User>
             th.innerHTML = this.col[i];
             
         }
-    
-     for(let i =0;i<this.users.length;i++)
-     {
-        tr = document.createElement("tr");
+        this.users.forEach((user) => this.create(user))
+
+    }
+
+
+    create(user: User)
+    {
+     
+       let tr = document.createElement("tr");
         let editBtn = document.createElement("button");
         editBtn.innerHTML = "Edit";
-        editBtn.addEventListener('click',() => this.update(this.users[i]));
+        editBtn.addEventListener('click',() => this.update(user));
        editBtn.classList.add("edit");
        let deleteBtn = document.createElement("button");
        deleteBtn = document.createElement("button");
        deleteBtn.innerHTML = "Delete";
-       deleteBtn.addEventListener('click',(e:Event) => this.delete(e));
+      // deleteBtn.addEventListener('click',(e:Event) => this.delete(e));
+      deleteBtn.addEventListener('click',()=>this.delete(user));
        deleteBtn.classList.add("dlt");
     
-        tr.innerHTML = `<td>${this.users[i].firstName}</td>
-                        <td>${this.users[i].middleName}</td>
-                        <td>${this.users[i].lastName}</td>
-                        <td>${this.users[i].email}</td>
-                        <td>${this.users[i].phone_no}</td>
-                        <td>${this.users[i].role}</td>
-                        <td>${this.users[i].address}</td>
+        tr.innerHTML = `<td>${user.firstName}</td>
+                        <td>${user.middleName}</td>
+                        <td>${user.lastName}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phone_no}</td>
+                        <td>${user.role}</td>
+                        <td>${user.address}</td>
                         `;
         tr.append(editBtn);
         tr.append(deleteBtn);
         this.tableEle.append(tr);
-        this.read();
-    }
+        this.tableContainer.innerHTML = "";
+        this.tableContainer.append(this.tableEle);
         
     }
 
     read(){
-        this.tableContainer.innerHTML = "";
-        this.tableContainer.append(this.tableEle);
+        
     }
 
     update(user:User)
@@ -149,30 +153,33 @@ export class UserCRUD implements CRUD <User>
         tr.contentEditable = "false";
         dltbtn.innerHTML = "Delete";
         editbtn.innerHTML = "Edit";
-        this.create();
+        this.load();
     }
  
+    delete(user: User): void {
+        let i = this.users.indexOf(user);
+        let tr = this.tableEle.children[i+1] as HTMLTableRowElement;
+        let editbtn = tr.children[7] as HTMLButtonElement;
+        let dltbtn = tr.children[8] as HTMLButtonElement;
 
-        delete(e:Event): void {
-        let targetBtn = e.target! as HTMLElement;
-        let tr = targetBtn.parentElement! as HTMLTableRowElement;
-        let index = tr.rowIndex;
-        if(targetBtn.innerHTML === "Delete")
+        if(dltbtn.innerHTML === "Delete")
         {
             tr.remove();
-            this.users.splice(index-1,1);
-            this.create();
+            this.users.splice(i-1,1);
+            this.load();
+        }
+        else
+        {
+            this.cancel(user);
+        }
+        
+    }
 
-        }
-        else{
-            this.cancel(this.users[index-1]);
-        }
-    } 
     refresh()
     {
         this.users = [];
         this.initialize();
-        this.create(); 
+        this.load(); 
     }
 }
 

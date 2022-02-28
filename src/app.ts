@@ -32,7 +32,7 @@ class MainPage implements ImainPage{
     {
         if(this.Btn.innerHTML == "Load Data")
         {
-            this.userCRUD.create();
+            this.userCRUD.load();
             this.updateDate(new Date(),this.Btn.innerHTML);
             this.Btn.innerHTML = "Refresh";
         }

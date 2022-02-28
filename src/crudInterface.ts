@@ -2,10 +2,10 @@ import {User} from "./User.js";
 
 export interface CRUD<T>
 {
-    create() : void;
+    create(ob:T) : void;
     read() : void;
     update(ob:T) : void;
-    delete(e:Event) : void;
+    delete(ob:T) : void;
     cancel(ob:T) : void;
 
 }
