@@ -165,7 +165,7 @@ export class UserCRUD implements CRUD <User>
         if(dltbtn.innerHTML === "Delete")
         {
             tr.remove();
-            this.users.splice(i-1,1);
+            this.users.splice(i,1);
             this.load();
         }
         else
