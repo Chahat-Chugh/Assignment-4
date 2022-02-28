@@ -1,10 +1,9 @@
-
+import data from "../src/data.json" assert {type: "json"};
 import {User} from "./User.js";
 import {CRUD} from "./crudInterface.js";  
-import data from "./data.json" assert {type : "json"};
 import { Role } from "./Role.js";
 
-export class UserCRUD implements CRUD <User>
+export class UserCRUD implements CRUD<User>
 {
     users: User[];
     col: string[];
@@ -15,7 +14,7 @@ export class UserCRUD implements CRUD <User>
     {
        this.users = [];
        this.col = [];
-       this.tableContainer = document.querySelector('.table')!;
+       this.tableContainer = document.querySelector('.table')! as HTMLDivElement;
        this.initialize();
        this.tableEle = document.createElement("table");
     }
@@ -164,8 +163,9 @@ export class UserCRUD implements CRUD <User>
 
         if(dltbtn.innerHTML === "Delete")
         {
-            tr.remove();
-            this.users.splice(i-1,1);
+            
+            console.log(this.users[i]);
+             this.users.splice(i,1);
             this.load();
         }
         else

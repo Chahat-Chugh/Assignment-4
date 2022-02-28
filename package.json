@@ -13,6 +13,7 @@
     "lite-server": "^2.6.1"
   },
   "dependencies": {
-    "class-transformer": "^0.5.1"
+    "class-transformer": "^0.5.1",
+    "typescript": "^4.5.5"
   }
 }
