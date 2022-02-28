@@ -1,5 +1,5 @@
+import data from "../src/data.json" assert { type: "json" };
 import { User } from "./User.js";
-import data from "./data.json" assert { type: "json" };
 import { Role } from "./Role.js";
 export class UserCRUD {
     constructor() {
@@ -119,8 +119,8 @@ export class UserCRUD {
         let editbtn = tr.children[7];
         let dltbtn = tr.children[8];
         if (dltbtn.innerHTML === "Delete") {
-            tr.remove();
-            this.users.splice(i - 1, 1);
+            console.log(this.users[i]);
+            this.users.splice(i, 1);
             this.load();
         }
         else {

@@ -23,7 +23,7 @@ class MainPage implements ImainPage{
     date: Date = new Date();
     constructor()
     {
-        this.Btn = document.querySelector(".btn")!;
+        this.Btn = document.querySelector(".btn")! as HTMLButtonElement;
         this.userCRUD = new UserCRUD();
         this.Btn.addEventListener('click',() => this.load());
     }
